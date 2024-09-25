@@ -12,4 +12,4 @@ const areaSchema = mongoose.Schema({
     animales: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Animal' }]
 
 });
-module.exports = mongoose.model('Area' areaSchema);
+module.exports = mongoose.model('Area', areaSchema);
