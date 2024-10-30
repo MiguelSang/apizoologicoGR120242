@@ -1,5 +1,5 @@
 const express = require("express");
-const verifyToken = require('./validate_token');
+const verifyToken = require('./validate_token'); // Si necesitas autenticación, puedes usar esto
 const router = express.Router(); // Manejador de rutas de express
 const animalSchema = require("../models/animal");
 
@@ -31,6 +31,20 @@ router.put("/animals/:id", (req, res) => {
                 return res.status(404).json({ message: "Animal no encontrado" });
             }
             res.json(data);
+        })
+        .catch((error) => res.status(500).json({ message: error.message }));
+});
+
+// Eliminar un animal
+router.delete("/animals/:id", (req, res) => {
+    const { id } = req.params;
+
+    animalSchema.findByIdAndDelete(id)
+        .then((data) => {
+            if (!data) {
+                return res.status(404).json({ message: "Animal no encontrado" });
+            }
+            res.json({ message: "Animal eliminado exitosamente" });
         })
         .catch((error) => res.status(500).json({ message: error.message }));
 });
